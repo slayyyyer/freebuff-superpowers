@@ -35,12 +35,18 @@ being a plugin:
 **From GitHub, with the skills CLI** (Node 22.20+):
 
 ```bash
-npx skills add slayyyyer/freebuff-superpowers --agent universal --skill '*' --yes --copy -g
+npx skills add slayyyyer/freebuff-superpowers -a claude-code --skill '*' --yes --copy -g
 ```
 
-`-g` installs into `~/.agents/skills` so every project can use the skills. Omit it to
-install into the current project only. Start a new Freebuff session afterwards and check
-`/skill:brainstorming`.
+**Installing on Freebuff:** the CLI has no Freebuff entry, and `--agent universal` looks
+like the safe choice but is not one — its global path is `~/.config/agents/skills/`, which
+Freebuff never scans. Use `-a claude-code` instead: it resolves to `~/.claude/skills/`
+globally and `.claude/skills/` in a project, both of which Freebuff reads. `-a codex` and
+`-a cline` also work globally, via `~/.agents/skills/`.
+
+`-g` installs into `~/.claude/skills` so every project can use the skills. Omit it to
+install into the current project only (`.claude/skills`). Start a new Freebuff session
+afterwards and check `/skill:brainstorming`.
 
 The CLI copies skills but does not write the `AGENTS.md` block, so for the automatic
 bootstrap run the installer after cloning (below) or paste
